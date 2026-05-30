@@ -31,16 +31,19 @@
             this.lsb_Books = new System.Windows.Forms.ListBox();
             this.gv_Reviews = new System.Windows.Forms.DataGridView();
             this.tp_BookOwerview = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lbl_BookName = new System.Windows.Forms.Label();
             this.lbl_Author = new System.Windows.Forms.Label();
             this.lbl_Year = new System.Windows.Forms.Label();
             this.lbl_ISBN = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.btn_TakeBook = new System.Windows.Forms.Button();
+            this.gv_UserBooks = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.gv_Reviews)).BeginInit();
             this.tp_BookOwerview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_UserBooks)).BeginInit();
             this.SuspendLayout();
             // 
             // lsb_Books
@@ -48,16 +51,16 @@
             this.lsb_Books.FormattingEnabled = true;
             this.lsb_Books.Location = new System.Drawing.Point(24, 12);
             this.lsb_Books.Name = "lsb_Books";
-            this.lsb_Books.Size = new System.Drawing.Size(300, 433);
+            this.lsb_Books.Size = new System.Drawing.Size(300, 342);
             this.lsb_Books.TabIndex = 0;
             this.lsb_Books.SelectedIndexChanged += new System.EventHandler(this.lsb_Books_SelectedIndexChanged);
             // 
             // gv_Reviews
             // 
             this.gv_Reviews.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gv_Reviews.Location = new System.Drawing.Point(367, 201);
+            this.gv_Reviews.Location = new System.Drawing.Point(350, 202);
             this.gv_Reviews.Name = "gv_Reviews";
-            this.gv_Reviews.Size = new System.Drawing.Size(710, 244);
+            this.gv_Reviews.Size = new System.Drawing.Size(710, 126);
             this.gv_Reviews.TabIndex = 1;
             // 
             // tp_BookOwerview
@@ -83,14 +86,23 @@
             this.tp_BookOwerview.Size = new System.Drawing.Size(361, 160);
             this.tp_BookOwerview.TabIndex = 2;
             // 
-            // label1
+            // label4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Book name";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "ISBN";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 86);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Year";
             // 
             // lbl_BookName
             // 
@@ -128,6 +140,15 @@
             this.lbl_ISBN.TabIndex = 5;
             this.lbl_ISBN.Text = "         ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Book name";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -137,29 +158,32 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Autor";
             // 
-            // label3
+            // btn_TakeBook
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Year";
+            this.btn_TakeBook.Location = new System.Drawing.Point(350, 334);
+            this.btn_TakeBook.Name = "btn_TakeBook";
+            this.btn_TakeBook.Size = new System.Drawing.Size(710, 23);
+            this.btn_TakeBook.TabIndex = 3;
+            this.btn_TakeBook.Text = "Take the book";
+            this.btn_TakeBook.UseVisualStyleBackColor = true;
+            this.btn_TakeBook.Click += new System.EventHandler(this.btn_TakeBook_Click);
             // 
-            // label4
+            // gv_UserBooks
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 124);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "ISBN";
+            this.gv_UserBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gv_UserBooks.Location = new System.Drawing.Point(24, 381);
+            this.gv_UserBooks.Name = "gv_UserBooks";
+            this.gv_UserBooks.Size = new System.Drawing.Size(1036, 126);
+            this.gv_UserBooks.TabIndex = 4;
+            this.gv_UserBooks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_UserBooks_CellContentClick);
             // 
             // UserMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1089, 538);
+            this.Controls.Add(this.gv_UserBooks);
+            this.Controls.Add(this.btn_TakeBook);
             this.Controls.Add(this.tp_BookOwerview);
             this.Controls.Add(this.gv_Reviews);
             this.Controls.Add(this.lsb_Books);
@@ -169,6 +193,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gv_Reviews)).EndInit();
             this.tp_BookOwerview.ResumeLayout(false);
             this.tp_BookOwerview.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_UserBooks)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -186,5 +211,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_TakeBook;
+        private System.Windows.Forms.DataGridView gv_UserBooks;
     }
 }

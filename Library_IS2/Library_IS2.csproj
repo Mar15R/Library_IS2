@@ -85,6 +85,12 @@
     <Compile Include="Forms\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ReviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReviewForm.Designer.cs">
+      <DependentUpon>ReviewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,8 +131,12 @@
     </Compile>
     <Compile Include="Views\BookReviews.cs" />
     <Compile Include="Views\BookView.cs" />
+    <Compile Include="Views\UserBookView.cs" />
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReviewForm.resx">
+      <DependentUpon>ReviewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserMain.resx">
       <DependentUpon>UserMain.cs</DependentUpon>

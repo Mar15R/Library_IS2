@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library_IS2.Lib
 {
-    internal class Result<T>
+    public class Result<T>
     {
         public T Data { get; set; }
         public string ErrorMessage { get; set; }
