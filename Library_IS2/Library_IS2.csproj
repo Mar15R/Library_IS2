@@ -131,7 +131,11 @@
     </Compile>
     <Compile Include="Views\BookReviews.cs" />
     <Compile Include="Views\BookView.cs" />
+    <Compile Include="Views\UnreturnedBookView.cs" />
     <Compile Include="Views\UserBookView.cs" />
+    <EmbeddedResource Include="Forms\AdminMain.resx">
+      <DependentUpon>AdminMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>

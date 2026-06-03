@@ -22,8 +22,10 @@ namespace Library_IS2.Forms
        
         private void Login_Load(object sender, EventArgs e)
         {
-            txt_Username.Text = "andrew.lee";
-            txt_Password.Text = "Passw0rd!20";
+            //txt_Username.Text = "andrew.lee";
+            //txt_Password.Text = "Passw0rd!20";
+            txt_Username.Text = "alice.smith";
+            txt_Password.Text = "Passw0rd!1";
 
         }
 
