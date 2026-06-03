@@ -195,20 +195,21 @@ namespace Library_IS2.Lib
             }
             catch { throw; }
         }
-        public List<UserView> GetAllUsers()
-        {
+        public List<UnreturnedBookView> GetUnreturnedBooks(List<UserBook> unreturnedBooks)
+            {
+
             try
             {
-                return repo.GetEntities<User>().Select(u => new UserView
+                var result = unreturnedBooks.Select(ub => new UnreturnedBookView
                 {
-                    Name = u.Name,
-                    Surname = u.Surname,
-                    Email = u.Email,
-                    Phone = u.Phone,
-                    Role = u.Role,
-                    Password = u.Password,
-                    UserName = u.UserName
+                    Id_Book = ub.Id_Book,
+                    BookName = ub.Book?.Book_Name,
+                    Email = ub.User?.Email,
+                    DaysOverdue = (DateTime.Now - (ub.PickDate.AddDays(GlobalSettings.Instance.DaysToReturn))).Days,
+                    UserName = ub.UserName,
+                    PickDate = ub.PickDate
                 }).ToList();
+                return result;
             }
             catch { throw; }
         }

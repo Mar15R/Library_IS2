@@ -17,9 +17,14 @@ namespace Library_IS2.Forms
         private User _user;
         Factory factory = new Factory();
         Helper helper = new Helper();
-        public UserMain(User user)
+        List<GridAction> gridActionsR = new List<GridAction>
+            {
+                new GridAction { Name = "btnReturn", Text = "Return" }
+            };
+
+        public UserMain()
         {
-            _user = user;
+            _user = GlobalSettings.Instance.user;
             InitializeComponent();
         }
         List<GridAction> gridActionsR = new List<GridAction>
@@ -155,6 +160,11 @@ namespace Library_IS2.Forms
             {
                 gv_BookReviews.DataSource = null;
             }
+        }
+
+        private void UserMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

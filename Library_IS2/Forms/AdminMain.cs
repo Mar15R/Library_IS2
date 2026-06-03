@@ -16,5 +16,16 @@ namespace Library_IS2.Forms
         {
             InitializeComponent();
         }
+
+        private void AdminMain_Load(object sender, EventArgs e)
+        {
+            helper.ReloadGrid(gv_UnreturnedBooks, factory.SearchUnreturnedBooks(GlobalSettings.Instance.DaysToReturn), new List<int> { 0 }, hasDeleteAction: false);
+
+        }
+
+        private void AdminMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

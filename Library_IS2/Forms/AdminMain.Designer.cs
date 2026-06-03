@@ -32,6 +32,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "AdminMain";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminMain_FormClosed);
+            this.Load += new System.EventHandler(this.AdminMain_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.gv_UnreturnedBooks)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
