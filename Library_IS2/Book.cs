@@ -27,8 +27,8 @@ namespace Library_IS2
         public Nullable<long> ID_Author { get; set; }
     
         public virtual Author Author { get; set; }
-        public virtual UserBook UserBook { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookReview> BookReview { get; set; }
+        public virtual UserBook UserBook { get; set; }
     }
 }

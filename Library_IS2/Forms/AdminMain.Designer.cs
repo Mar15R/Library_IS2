@@ -48,6 +48,7 @@
             this.Controls.Add(this.gv_UnreturnedBooks);
             this.Name = "AdminMain";
             this.Text = "AdminMain";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminMain_FormClosed);
             this.Load += new System.EventHandler(this.AdminMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gv_UnreturnedBooks)).EndInit();
             this.ResumeLayout(false);

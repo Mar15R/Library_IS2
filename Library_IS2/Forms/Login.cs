@@ -41,6 +41,7 @@ namespace Library_IS2.Forms
                 Result<User> user = security.AuthenticateUser(userName, password);
                 if (user.IsSuccess)
                 {
+                    GlobalSettings.Instance.user = user.Data;
                     this.Hide();
                     switch (user.Data.Role)
                     {
@@ -52,13 +53,13 @@ namespace Library_IS2.Forms
                             }
                         case "User":
                             {
-                                UserMain userMain = new UserMain(user.Data);
+                                UserMain userMain = new UserMain();
                                 userMain.Show();
                                 break;
                             }
                         default:
                             {
-                                UserMain userMain = new UserMain(user.Data);
+                                UserMain userMain = new UserMain();
                                 userMain.Show();
                                 break;
                             }

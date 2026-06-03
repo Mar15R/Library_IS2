@@ -99,17 +99,19 @@ namespace Library_IS2.Lib
         }
         public List<UnreturnedBookView> GetUnreturnedBooks(List<UserBook> unreturnedBooks)
             {
+
             try
             {
-                return unreturnedBooks.Select(ub => new UnreturnedBookView
+                var result = unreturnedBooks.Select(ub => new UnreturnedBookView
                 {
                     Id_Book = ub.Id_Book,
-                    BookName = ub.Book?.Book_Name,           
+                    BookName = ub.Book?.Book_Name,
                     Email = ub.User?.Email,
-                    DaysOverdue = (DateTime.Now - ub.PickDate).Days,
+                    DaysOverdue = (DateTime.Now - (ub.PickDate.AddDays(GlobalSettings.Instance.DaysToReturn))).Days,
                     UserName = ub.UserName,
                     PickDate = ub.PickDate
                 }).ToList();
+                return result;
             }
             catch { throw; }
         }

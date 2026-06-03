@@ -98,6 +98,7 @@
       <DependentUpon>UserMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\Factory.cs" />
+    <Compile Include="Lib\GlobalSettings.cs" />
     <Compile Include="Lib\Helper.cs" />
     <Compile Include="Lib\Enum.cs" />
     <Compile Include="Lib\Result.cs" />
