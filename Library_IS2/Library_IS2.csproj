@@ -134,6 +134,7 @@
     <Compile Include="Views\BookView.cs" />
     <Compile Include="Views\UnreturnedBookView.cs" />
     <Compile Include="Views\UserBookView.cs" />
+    <Compile Include="Views\UserView.cs" />
     <EmbeddedResource Include="Forms\AdminMain.resx">
       <DependentUpon>AdminMain.cs</DependentUpon>
     </EmbeddedResource>

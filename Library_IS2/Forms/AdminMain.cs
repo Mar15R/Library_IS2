@@ -81,7 +81,10 @@ namespace Library_IS2.Forms
 
                 UnreturnedBooksGridReload();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                lb_ErrorDeactivate.Text = $"An error occurred: {ex.Message}";
+            }
         }
 
         private void UnreturnedBooksGridReload()

@@ -152,7 +152,7 @@ namespace Library_IS2.Lib
         {
             try
             {
-                User user = repo.GetEntitiesByFilter<User>(u => u.UserName == username).FirstOrDefault();
+                User user = repo.GetEntityById<User>( username);
                 if (user == null)
                 {
                     return false;
