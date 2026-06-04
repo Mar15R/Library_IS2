@@ -148,7 +148,7 @@ namespace Library_IS2.Lib
             catch { throw; }
         }
 
-        public bool DeactivateUser(string username)
+        public bool UserStatusChange(string username, bool isActive)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace Library_IS2.Lib
                 {
                     return false;
                 }
-                user.IsActive = false;
+                user.IsActive = isActive;
                 repo.UpdateEntity(user);
                 return true;
             }

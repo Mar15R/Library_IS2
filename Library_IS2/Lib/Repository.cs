@@ -98,7 +98,8 @@ namespace Library_IS.Lib
             try
             {
                 IQueryable<TEntity> query = _dbContext.Set<TEntity>();
-                return query.FirstOrDefault(filter);
+                // Ensure the returned entity is not tracked by the context
+                return query.AsNoTracking().FirstOrDefault(filter);
             }
             catch { throw; }
         }
