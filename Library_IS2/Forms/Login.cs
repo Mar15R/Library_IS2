@@ -22,8 +22,10 @@ namespace Library_IS2.Forms
        
         private void Login_Load(object sender, EventArgs e)
         {
-            txt_Username.Text = "andrew.lee";
-            txt_Password.Text = "Passw0rd!20";
+            //txt_Username.Text = "andrew.lee";
+            //txt_Password.Text = "Passw0rd!20";
+            txt_Username.Text = "alice.smith";
+            txt_Password.Text = "Passw0rd!1";
 
         }
 
@@ -39,6 +41,7 @@ namespace Library_IS2.Forms
                 Result<User> user = security.AuthenticateUser(userName, password);
                 if (user.IsSuccess)
                 {
+                    GlobalSettings.Instance.user = user.Data;
                     this.Hide();
                     switch (user.Data.Role)
                     {
@@ -50,13 +53,13 @@ namespace Library_IS2.Forms
                             }
                         case "User":
                             {
-                                UserMain userMain = new UserMain(user.Data);
+                                UserMain userMain = new UserMain();
                                 userMain.Show();
                                 break;
                             }
                         default:
                             {
-                                UserMain userMain = new UserMain(user.Data);
+                                UserMain userMain = new UserMain();
                                 userMain.Show();
                                 break;
                             }

@@ -28,12 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.gv_UnreturnedBooks = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_UnreturnedBooks)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // gv_UnreturnedBooks
+            // 
+            this.gv_UnreturnedBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gv_UnreturnedBooks.Location = new System.Drawing.Point(63, 27);
+            this.gv_UnreturnedBooks.Name = "gv_UnreturnedBooks";
+            this.gv_UnreturnedBooks.Size = new System.Drawing.Size(662, 165);
+            this.gv_UnreturnedBooks.TabIndex = 0;
+            // 
+            // AdminMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.gv_UnreturnedBooks);
+            this.Name = "AdminMain";
             this.Text = "AdminMain";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminMain_FormClosed);
+            this.Load += new System.EventHandler(this.AdminMain_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.gv_UnreturnedBooks)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView gv_UnreturnedBooks;
     }
 }

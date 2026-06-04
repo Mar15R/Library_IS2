@@ -28,8 +28,8 @@ namespace Library_IS2
         public virtual DbSet<Author> Author { get; set; }
         public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserBook> UserBook { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<BookReview> BookReview { get; set; }
+        public virtual DbSet<UserBook> UserBook { get; set; }
     }
 }

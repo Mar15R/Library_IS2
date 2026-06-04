@@ -17,6 +17,7 @@ namespace Library_IS2
         public string UserName { get; set; }
         public long Id_Book { get; set; }
         public System.DateTime PickDate { get; set; }
+        public Nullable<int> Remainder { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
