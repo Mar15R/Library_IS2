@@ -22,9 +22,9 @@ public partial class User
     public User()
     {
 
-        this.UserBook = new HashSet<UserBook>();
-
         this.BookReview = new HashSet<BookReview>();
+
+        this.UserBook = new HashSet<UserBook>();
 
     }
 
@@ -43,17 +43,19 @@ public partial class User
 
     public string UserName { get; set; }
 
+    public bool IsActive { get; set; }
 
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<BookReview> BookReview { get; set; }
 
     public virtual UserRole UserRole { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<UserBook> UserBook { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<BookReview> BookReview { get; set; }
 
 }
 

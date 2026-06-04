@@ -31,7 +31,7 @@
           <Property Name="Id_Book" Type="bigint" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="Review" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="BookReviewDate" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReviewDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -44,6 +44,7 @@
           <Property Name="Role" Type="nvarchar" MaxLength="20" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserBook">
           <Key>
@@ -52,6 +53,7 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Id_Book" Type="bigint" Nullable="false" />
           <Property Name="PickDate" Type="datetime" Nullable="false" />
+          <Property Name="Reminder" Type="int" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -73,9 +75,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BookReview_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
           <End Role="BookReview" Type="Self.BookReview" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
@@ -189,33 +189,8 @@
           <Property Name="Year" Type="Int16" Nullable="false" />
           <Property Name="ID_Author" Type="Int64" />
           <NavigationProperty Name="Author" Relationship="Self.FK_Book_Author" FromRole="Book" ToRole="Author" />
-          <NavigationProperty Name="UserBook" Relationship="Self.FK_UserBook_Book" FromRole="Book" ToRole="UserBook" />
           <NavigationProperty Name="BookReview" Relationship="Library2Model.FK_BookReview_Book" FromRole="Book" ToRole="BookReview" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserName" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
-          <NavigationProperty Name="UserBook" Relationship="Self.FK_UserBook_User" FromRole="User" ToRole="UserBook" />
-          <NavigationProperty Name="BookReview" Relationship="Library2Model.FK_BookReview_User" FromRole="User" ToRole="BookReview" />
-        </EntityType>
-        <EntityType Name="UserBook">
-          <Key>
-            <PropertyRef Name="Id_Book" />
-          </Key>
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Id_Book" Type="Int64" Nullable="false" />
-          <Property Name="PickDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="Self.FK_UserBook_Book" FromRole="UserBook" ToRole="Book" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserBook_User" FromRole="UserBook" ToRole="User" />
+          <NavigationProperty Name="UserBook" Relationship="Library2Model.FK_UserBook_Book" FromRole="Book" ToRole="UserBook" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -223,7 +198,7 @@
           </Key>
           <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_UserRole" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Library2Model.FK_User_UserRole" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <Association Name="FK_Book_Author">
           <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
@@ -237,72 +212,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserBook_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="UserBook" Type="Self.UserBook" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="Id_Book" />
-            </Principal>
-            <Dependent Role="UserBook">
-              <PropertyRef Name="Id_Book" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_UserRole">
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserRole">
-              <PropertyRef Name="Role" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="Role" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBook_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserBook" Type="Self.UserBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserName" />
-            </Principal>
-            <Dependent Role="UserBook">
-              <PropertyRef Name="UserName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Library2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Author" EntityType="Self.Author" />
           <EntitySet Name="Book" EntityType="Self.Book" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="UserBook" EntityType="Self.UserBook" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_Book_Author" Association="Self.FK_Book_Author">
             <End Role="Author" EntitySet="Author" />
             <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBook_Book" Association="Self.FK_UserBook_Book">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="UserBook" EntitySet="UserBook" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
-            <End Role="UserRole" EntitySet="UserRole" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBook_User" Association="Self.FK_UserBook_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserBook" EntitySet="UserBook" />
           </AssociationSet>
           <EntitySet Name="BookReview" EntityType="Library2Model.BookReview" />
           <AssociationSet Name="FK_BookReview_Book" Association="Library2Model.FK_BookReview_Book">
             <End Role="Book" EntitySet="Book" />
             <End Role="BookReview" EntitySet="BookReview" />
           </AssociationSet>
+          <EntitySet Name="UserBook" EntityType="Library2Model.UserBook" />
+          <AssociationSet Name="FK_UserBook_Book" Association="Library2Model.FK_UserBook_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="UserBook" EntitySet="UserBook" />
+          </AssociationSet>
+          <EntitySet Name="User" EntityType="Library2Model.User" />
           <AssociationSet Name="FK_BookReview_User" Association="Library2Model.FK_BookReview_User">
             <End Role="User" EntitySet="User" />
             <End Role="BookReview" EntitySet="BookReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserRole" Association="Library2Model.FK_User_UserRole">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBook_User" Association="Library2Model.FK_UserBook_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserBook" EntitySet="UserBook" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="BookReview">
@@ -313,14 +252,12 @@
           <Property Name="Id_Book" Type="Int64" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Review" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BookReviewDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ReviewDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Book" Relationship="Library2Model.FK_BookReview_Book" FromRole="BookReview" ToRole="Book" />
           <NavigationProperty Name="User" Relationship="Library2Model.FK_BookReview_User" FromRole="BookReview" ToRole="User" />
         </EntityType>
         <Association Name="FK_BookReview_Book">
-          <End Type="Library2Model.Book" Role="Book" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="Library2Model.Book" Role="Book" Multiplicity="1" />
           <End Type="Library2Model.BookReview" Role="BookReview" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
@@ -331,6 +268,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserBook">
+          <Key>
+            <PropertyRef Name="Id_Book" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Book" Type="Int64" Nullable="false" />
+          <Property Name="PickDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reminder" Type="Int32" />
+          <NavigationProperty Name="Book" Relationship="Library2Model.FK_UserBook_Book" FromRole="UserBook" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="Library2Model.FK_UserBook_User" FromRole="UserBook" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserBook_Book">
+          <End Type="Library2Model.Book" Role="Book" Multiplicity="1" />
+          <End Type="Library2Model.UserBook" Role="UserBook" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id_Book" />
+            </Principal>
+            <Dependent Role="UserBook">
+              <PropertyRef Name="Id_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookReview" Relationship="Library2Model.FK_BookReview_User" FromRole="User" ToRole="BookReview" />
+          <NavigationProperty Name="UserRole" Relationship="Library2Model.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="UserBook" Relationship="Library2Model.FK_UserBook_User" FromRole="User" ToRole="UserBook" />
+        </EntityType>
         <Association Name="FK_BookReview_User">
           <End Type="Library2Model.User" Role="User" Multiplicity="0..1" />
           <End Type="Library2Model.BookReview" Role="BookReview" Multiplicity="*" />
@@ -339,6 +315,30 @@
               <PropertyRef Name="UserName" />
             </Principal>
             <Dependent Role="BookReview">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserRole">
+          <End Type="Library2Model.UserRole" Role="UserRole" Multiplicity="0..1" />
+          <End Type="Library2Model.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBook_User">
+          <End Type="Library2Model.User" Role="User" Multiplicity="1" />
+          <End Type="Library2Model.UserBook" Role="UserBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="UserBook">
               <PropertyRef Name="UserName" />
             </Dependent>
           </ReferentialConstraint>
@@ -369,28 +369,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="Library2Model.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserBook">
-            <EntityTypeMapping TypeName="Library2Model.UserBook">
-              <MappingFragment StoreEntitySet="UserBook">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Id_Book" ColumnName="Id_Book" />
-                <ScalarProperty Name="PickDate" ColumnName="PickDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserRole">
             <EntityTypeMapping TypeName="Library2Model.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
@@ -402,11 +380,35 @@
           <EntitySetMapping Name="BookReview">
             <EntityTypeMapping TypeName="Library2Model.BookReview">
               <MappingFragment StoreEntitySet="BookReview">
-                <ScalarProperty Name="BookReviewDate" ColumnName="BookReviewDate" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
                 <ScalarProperty Name="Review" ColumnName="Review" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id_Book" ColumnName="Id_Book" />
                 <ScalarProperty Name="Id_BookReview" ColumnName="Id_BookReview" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBook">
+            <EntityTypeMapping TypeName="Library2Model.UserBook">
+              <MappingFragment StoreEntitySet="UserBook">
+                <ScalarProperty Name="Reminder" ColumnName="Reminder" />
+                <ScalarProperty Name="PickDate" ColumnName="PickDate" />
+                <ScalarProperty Name="Id_Book" ColumnName="Id_Book" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Library2Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

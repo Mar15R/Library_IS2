@@ -26,7 +26,7 @@ public partial class BookReview
 
     public string Review { get; set; }
 
-    public string BookReviewDate { get; set; }
+    public System.DateTime ReviewDate { get; set; }
 
 
 

@@ -24,6 +24,8 @@ public partial class UserBook
 
     public System.DateTime PickDate { get; set; }
 
+    public Nullable<int> Reminder { get; set; }
+
 
 
     public virtual Book Book { get; set; }

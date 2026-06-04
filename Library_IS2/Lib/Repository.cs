@@ -74,10 +74,10 @@ namespace Library_IS.Lib
             try
             {
                 var entry = _dbContext.Entry(entity);
-                if (entry.State == EntityState.Detached)
-                {
-                    return false;
-                }
+                //if (entry.State == EntityState.Detached)
+                //{
+                //    return false;
+                //}
                 entry.State = EntityState.Modified;
                 _dbContext.SaveChanges();
                 return true;
@@ -102,5 +102,6 @@ namespace Library_IS.Lib
             }
             catch { throw; }
         }
+
     }
 }

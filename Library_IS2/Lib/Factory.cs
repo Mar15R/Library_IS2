@@ -41,7 +41,7 @@ namespace Library_IS2.Lib
                 {
                     UserName = br.User?.UserName,
                     Review = br.Review,
-                    ReviewDate = DateTime.TryParse(br.BookReviewDate, out var date) ? date : DateTime.MinValue
+                    ReviewDate = br.ReviewDate
                 }).ToList();
             }
             catch { throw; }
@@ -98,7 +98,7 @@ namespace Library_IS2.Lib
             catch { throw; }
         }
         public List<UnreturnedBookView> GetUnreturnedBooks(List<UserBook> unreturnedBooks)
-            {
+        {
 
             try
             {
@@ -109,7 +109,9 @@ namespace Library_IS2.Lib
                     Email = ub.User?.Email,
                     DaysOverdue = (DateTime.Now - (ub.PickDate.AddDays(GlobalSettings.Instance.DaysToReturn))).Days,
                     UserName = ub.UserName,
-                    PickDate = ub.PickDate
+                    PickDate = ub.PickDate,
+                    Reminder = ub.Reminder,
+                    Status = ub.User.IsActive == true ? "Active" : "Inactive"
                 }).ToList();
                 return result;
             }
@@ -123,7 +125,7 @@ namespace Library_IS2.Lib
                 UserBook userBook = repo.GetEntitiesByFilter<UserBook>(ub => ub.UserName == username && ub.Id_Book == bookId).FirstOrDefault();
                 if (userBook == null)
                 {
-                    return new Result<bool> { ErrorMessage = "UserBook not found.", Data = false }; 
+                    return new Result<bool> { ErrorMessage = "UserBook not found.", Data = false };
                 }
                 return new Result<bool> { Data = repo.DeleteEntityById<UserBook>(userBook.Id_Book) };
             }
@@ -138,10 +140,26 @@ namespace Library_IS2.Lib
                     Id_Book = bookId,
                     UserName = username,
                     Review = review,
-                    BookReviewDate = DateTime.Now.ToString("yyyy-MM-dd")
+                    ReviewDate = DateTime.Now
                 };
                 repo.InsertEntity(bookReview);
                 return new Result<bool> { Data = true };
+            }
+            catch { throw; }
+        }
+
+        public bool DeactivateUser(string username)
+        {
+            try
+            {
+                User user = repo.GetEntitiesByFilter<User>(u => u.UserName == username).FirstOrDefault();
+                if (user == null)
+                {
+                    return false;
+                }
+                user.IsActive = false;
+                repo.UpdateEntity(user);
+                return true;
             }
             catch { throw; }
         }

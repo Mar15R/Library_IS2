@@ -29,34 +29,51 @@
         private void InitializeComponent()
         {
             this.gv_UnreturnedBooks = new System.Windows.Forms.DataGridView();
+            this.lb_ErrorDeactivate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gv_UnreturnedBooks)).BeginInit();
             this.SuspendLayout();
             // 
             // gv_UnreturnedBooks
             // 
             this.gv_UnreturnedBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gv_UnreturnedBooks.Location = new System.Drawing.Point(63, 27);
+            this.gv_UnreturnedBooks.Location = new System.Drawing.Point(84, 33);
+            this.gv_UnreturnedBooks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gv_UnreturnedBooks.Name = "gv_UnreturnedBooks";
-            this.gv_UnreturnedBooks.Size = new System.Drawing.Size(662, 165);
+            this.gv_UnreturnedBooks.RowHeadersWidth = 51;
+            this.gv_UnreturnedBooks.Size = new System.Drawing.Size(883, 203);
             this.gv_UnreturnedBooks.TabIndex = 0;
+            this.gv_UnreturnedBooks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_UnreturnedBooks_CellContentClick);
+            // 
+            // lb_ErrorDeactivate
+            // 
+            this.lb_ErrorDeactivate.AutoSize = true;
+            this.lb_ErrorDeactivate.Location = new System.Drawing.Point(87, 254);
+            this.lb_ErrorDeactivate.Name = "lb_ErrorDeactivate";
+            this.lb_ErrorDeactivate.Size = new System.Drawing.Size(109, 16);
+            this.lb_ErrorDeactivate.TabIndex = 1;
+            this.lb_ErrorDeactivate.Text = "                                  ";
             // 
             // AdminMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lb_ErrorDeactivate);
             this.Controls.Add(this.gv_UnreturnedBooks);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AdminMain";
             this.Text = "AdminMain";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminMain_FormClosed);
             this.Load += new System.EventHandler(this.AdminMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gv_UnreturnedBooks)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView gv_UnreturnedBooks;
+        private System.Windows.Forms.Label lb_ErrorDeactivate;
     }
 }
