@@ -41,7 +41,7 @@ namespace Library_IS2.Lib
                 {
                     UserName = br.User?.UserName,
                     Review = br.Review,
-                    BookReviewDate = DateTime.TryParse(br.BookReviewDate, out var date) ? date : default
+                    ReviewDate = DateTime.TryParse(br.BookReviewDate, out var date) ? date : DateTime.MinValue
                 }).ToList();
             }
             catch { throw; }
@@ -82,6 +82,40 @@ namespace Library_IS2.Lib
             }
             catch { throw; }
         }
+        public List<UnreturnedBookView> SearchUnreturnedBooks(int days)
+        {
+
+            try
+            {
+                DateTime dateToReturn = DateTime.Now.AddDays(-days);
+                List<UserBook> unreturnedBooks = repo.GetEntitiesByFilter<UserBook>(ub => ub.PickDate <= dateToReturn).ToList();
+                return GetUnreturnedBooks(unreturnedBooks);
+
+                //01.06.2006 <= 02.06.2026 ja 1 diena true
+                //01.06.2006 <= 29.05.2026 un 5 dienas false
+
+            }
+            catch { throw; }
+        }
+        public List<UnreturnedBookView> GetUnreturnedBooks(List<UserBook> unreturnedBooks)
+            {
+
+            try
+            {
+                var result = unreturnedBooks.Select(ub => new UnreturnedBookView
+                {
+                    Id_Book = ub.Id_Book,
+                    BookName = ub.Book?.Book_Name,
+                    Email = ub.User?.Email,
+                    DaysOverdue = (DateTime.Now - (ub.PickDate.AddDays(GlobalSettings.Instance.DaysToReturn))).Days,
+                    UserName = ub.UserName,
+                    PickDate = ub.PickDate
+                }).ToList();
+                return result;
+            }
+            catch { throw; }
+        }
+
         public Result<bool> ReturnBook(long bookId, string username)
         {
             try

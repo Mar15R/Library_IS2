@@ -11,7 +11,7 @@ namespace Library_IS2.Views
         
         public string UserName { get; set; }
         public string Review { get; set; }
-        public System.DateTime BookReviewDate { get; set; }      
+        public System.DateTime ReviewDate { get; set; }      
 
     }
 }

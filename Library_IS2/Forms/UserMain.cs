@@ -23,9 +23,9 @@ namespace Library_IS2.Forms
                 new GridAction { Name = "btnReturn", Text = "Return" }
             };
 
-        public UserMain(User user)
+        public UserMain()
         {
-            _user = user;
+            _user = GlobalSettings.Instance.user;
             InitializeComponent();
         }
 
@@ -107,6 +107,11 @@ namespace Library_IS2.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void UserMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -189,6 +189,7 @@
             this.Controls.Add(this.lsb_Books);
             this.Name = "UserMain";
             this.Text = "UserMain";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserMain_FormClosed);
             this.Load += new System.EventHandler(this.UserMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gv_Reviews)).EndInit();
             this.tp_BookOwerview.ResumeLayout(false);
