@@ -1,4 +1,5 @@
-﻿using Library_IS2.Lib;
+﻿using Library_IS.Lib;
+using Library_IS2.Lib;
 using Library_IS2.Views;
 using System;
 using System.Collections.Generic;
@@ -22,150 +23,90 @@ namespace Library_IS2.Forms
                 new GridAction { Name = "btnReturn", Text = "Return" }
             };
 
-        public UserMain()
+        public UserMain(User user)
         {
-            _user = GlobalSettings.Instance.user;
+            _user = user;
             InitializeComponent();
         }
-        List<GridAction> gridActionsR = new List<GridAction>
-            {
-                new GridAction { Name = "btnReturn", Text = "Return" }//,
-                //new GridAction { Name = "btnUpdate", Text = "Update" }
-            };
 
         private void UserMain_Load(object sender, EventArgs e)
         {
-            //tp_BookReviewPanel.Controls.Add();
-
-            ReloadBookList();
-            gv_UserTakenBooks.DataSource = factory.GetUserTakenBooks(_user.UserName);
-             helper.ReloadGrid(gv_UserTakenBooks, factory.GetUserTakenBooks(_user.UserName), new List<int> { 0 }, gridActionsR);
+           
+            //tp_BookOwerview.Controls.Add();
+            ReloadBooks();
 
         }
 
-        private void lsb_BooksList_SelectedIndexChanged(object sender, EventArgs e)
+        private void lsb_Books_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedBook = (BookView)lsb_BooksList.SelectedItem;
-            if (selectedBook != null) { 
-            lb_BookName.Text = selectedBook.Book_Name;
-            lb_ISBN.Text = selectedBook.ISBN;
+            var selectedBook =(BookView)lsb_Books.SelectedItem;
+            if (selectedBook != null)
+            {                
+                lbl_BookName.Text = selectedBook.Book_Name;
+                lbl_Author.Text = selectedBook.AuthorFullName;
+                lbl_Year.Text = selectedBook.Year.ToString();
+                lbl_ISBN.Text = selectedBook.ISBN;
 
-                gv_BookReviews.DataSource = factory.GetBookReviewsByFilter((int)selectedBook.ID_Book);
-                helper.ReloadGrid(gv_BookReviews, factory.GetBookReviewsByFilter((int)selectedBook.ID_Book), new List<int> { 0 }, false, false);
-
+                gv_Reviews.DataSource = factory.GetBookReviews((long)selectedBook.ID_Book);
+                helper.ReloadGrid(gv_Reviews, factory.GetBookReviews((long)selectedBook.ID_Book), null, null);
             }
-        }
+
+        } 
+        private void ReloadBooks()
+        {
+            lsb_Books.DataSource = factory.GetAviableBooks();
+            lsb_Books.DisplayMember = "Book_Name";
+            lsb_Books.ValueMember = "ID_Book";
+
+            helper.ReloadGrid(gv_UserBooks, factory.GetUserBooks(_user.UserName), null, gridActionsR);
+        }   
 
         private void btn_TakeBook_Click(object sender, EventArgs e)
         {
-            long bookId = (long)lsb_BooksList.SelectedValue;
+            long bookId = (long)lsb_Books.SelectedValue;
             Result<bool> result = factory.TakeBook(bookId, _user.UserName);
             if (result.IsSuccess)
             {
-                ReloadBookList();
-                ReloadTakenBooks();
+               ReloadBooks();
             }
             else
             {
-                lbl_Error.Text = result.ErrorMessage;
+                MessageBox.Show(result.ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
-        public void ReloadBookList()
-        {
-            lsb_BooksList.DataSource = factory.GetAvailableBooks();
-            lsb_BooksList.DisplayMember = "Book_Name";
-            lsb_BooksList.ValueMember = "id_Book";
-        }
-
-        private void UserMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void gv_UserTakenBooks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void gv_UserBooks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
-            {
-                if (e.RowIndex >= 0)
+            { 
+                UserBookView selectedUserBook = (UserBookView)gv_UserBooks.Rows[e.RowIndex].DataBoundItem;
+                if (gv_UserBooks.Columns[e.ColumnIndex].Name == "btnReturn")
                 {
-                    UserBookView userBook = (UserBookView)gv_UserTakenBooks.Rows[e.RowIndex].DataBoundItem;
-                    if (e.ColumnIndex == gv_UserTakenBooks.Columns["btnReturn"].Index)
+                    Result<bool> result = factory.ReturnBook(selectedUserBook.ID_Book, _user.UserName);
+                    if (result.IsSuccess)
+                    {                        
+                        using (ReviewForm popup = new ReviewForm(selectedUserBook.ID_Book, _user.UserName))
+                        {
+                            popup.StartPosition = FormStartPosition.CenterParent;
+                            popup.ShowDialog();
+                            if (popup.DialogResult == DialogResult.OK)
+                            {
+                                //ReloadBooks();
+                            }
+                            ReloadBooks();
+                        }
+                    }
+                    else
                     {
-                        if (factory.ReturnBook(userBook.ID_Book))
-                        {
-                            ReloadBookList();
-                            ReloadTakenBooks();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Problems with returning of the book...");
-                        }
+                        MessageBox.Show(result.ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-        }
-
-        public void ReloadTakenBooks()
-        {
-            gv_UserTakenBooks.DataSource = factory.GetUserTakenBooks(_user.UserName);
-        }
-
-        private void btn_AddReview_Click(object sender, EventArgs e)
-        {
-            UserBookView selectedTaken = null;
-            if (gv_UserTakenBooks.CurrentRow != null)
-            {
-                selectedTaken = gv_UserTakenBooks.CurrentRow.DataBoundItem as UserBookView;
-            }
-
-            if (selectedTaken == null)
-            {
-                lbl_Error.Text = "Please select a taken book from your list to add a review.";
-                return;
-            }
-
-            long bookId = selectedTaken.ID_Book;
-            using (AddReviewForm popup = new AddReviewForm(bookId, _user.UserName))
-            {
-                popup.StartPosition = FormStartPosition.CenterParent;
-                popup.ShowDialog();
-                if (popup.DialogResult == DialogResult.OK)
-                {
-                    ReloadReviewGrid();
-                }
-
-            }
-
-        }
-        private void ReloadReviewGrid()
-        {
-            // Pull selected book ID from the taken-books grid
-            UserBookView selectedTaken = null;
-            if (gv_UserTakenBooks.CurrentRow != null)
-            {
-                selectedTaken = gv_UserTakenBooks.CurrentRow.DataBoundItem as UserBookView;
-            }
-
-            if (selectedTaken != null)
-            {
-                gv_BookReviews.DataSource = factory.GetBookReviewsByFilter((int)selectedTaken.ID_Book);
-            }
-            else
-            {
-                gv_BookReviews.DataSource = null;
-            }
-        }
-
-        private void UserMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
         }
     }
 }
-// https://github.com/Mar15R/Library_IS2/tree/T001_JS

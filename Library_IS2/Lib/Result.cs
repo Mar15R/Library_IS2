@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Library_IS2.Lib
 {
@@ -10,7 +10,7 @@ namespace Library_IS2.Lib
     {
         public T Data { get; set; }
         public string ErrorMessage { get; set; }
-        public  bool IsSuccess => ErrorMessage==null;
+        public bool IsSuccess => ErrorMessage == null;
         public string InnerExceptionMessage { get; set; }
     }
 }

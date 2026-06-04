@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Library_IS2.Lib
+namespace Library_IS.Lib
 {
     public class Helper
     {

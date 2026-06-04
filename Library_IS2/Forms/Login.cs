@@ -19,6 +19,14 @@ namespace Library_IS2.Forms
             InitializeComponent();
         }
 
+       
+        private void Login_Load(object sender, EventArgs e)
+        {
+            txt_Username.Text = "andrew.lee";
+            txt_Password.Text = "Passw0rd!20";
+
+        }
+
         private void btn_Login_Click(object sender, EventArgs e)
         {
             string userName = txt_Username.Text.Trim();
@@ -31,25 +39,24 @@ namespace Library_IS2.Forms
                 Result<User> user = security.AuthenticateUser(userName, password);
                 if (user.IsSuccess)
                 {
-                    GlobalSettings.Instance.user = user.Data;
                     this.Hide();
                     switch (user.Data.Role)
                     {
                         case "Admin":
                             {
-                                AdminMain adminMain = new AdminMain();//user.Data
+                                AdminMain adminMain = new AdminMain();
                                 adminMain.Show();
                                 break;
                             }
                         case "User":
                             {
-                                UserMain userMain = new UserMain();
+                                UserMain userMain = new UserMain(user.Data);
                                 userMain.Show();
                                 break;
                             }
                         default:
                             {
-                                UserMain userMain = new UserMain();
+                                UserMain userMain = new UserMain(user.Data);
                                 userMain.Show();
                                 break;
                             }
@@ -66,11 +73,6 @@ namespace Library_IS2.Forms
                 MessageBox.Show("Please enter both username and password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            txt_Username.Text = "christopher.jackson";
-            txt_Password.Text = "Passw0rd!18";
-        }
     }
+    
 }

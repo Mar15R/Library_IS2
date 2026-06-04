@@ -7,7 +7,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library_IS2.Lib
+namespace Library_IS.Lib
 {
     internal class Repository
     {

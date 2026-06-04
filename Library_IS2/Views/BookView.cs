@@ -13,7 +13,5 @@ namespace Library_IS2.Views
         public string ISBN { get; set; }
         public short Year { get; set; }
         public string AuthorFullName { get; set; }
-
-
     }
 }
