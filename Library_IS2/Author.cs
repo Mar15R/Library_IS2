@@ -7,24 +7,37 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace Library_IS2
 {
-    using System;
+
+using System;
     using System.Collections.Generic;
     
-    public partial class Author
+public partial class Author
+{
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Author()
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Author()
-        {
-            this.Book = new HashSet<Book>();
-        }
-    
-        public long ID_Author { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
+
+        this.Book = new HashSet<Book>();
+
     }
+
+
+    public long ID_Author { get; set; }
+
+    public string Name { get; set; }
+
+    public string Surname { get; set; }
+
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<Book> Book { get; set; }
+
+}
+
 }

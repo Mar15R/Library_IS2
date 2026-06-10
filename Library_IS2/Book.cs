@@ -7,28 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace Library_IS2
 {
-    using System;
+
+using System;
     using System.Collections.Generic;
     
-    public partial class Book
+public partial class Book
+{
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Book()
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Book()
-        {
-            this.BookReview = new HashSet<BookReview>();
-        }
-    
-        public long Id_Book { get; set; }
-        public string Book_Name { get; set; }
-        public string ISBN { get; set; }
-        public short Year { get; set; }
-        public Nullable<long> ID_Author { get; set; }
-    
-        public virtual Author Author { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookReview> BookReview { get; set; }
-        public virtual UserBook UserBook { get; set; }
+
+        this.BookReview = new HashSet<BookReview>();
+
     }
+
+
+    public long Id_Book { get; set; }
+
+    public string Book_Name { get; set; }
+
+    public string ISBN { get; set; }
+
+    public short Year { get; set; }
+
+    public Nullable<long> ID_Author { get; set; }
+
+
+
+    public virtual Author Author { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<BookReview> BookReview { get; set; }
+
+    public virtual UserBook UserBook { get; set; }
+
+}
+
 }

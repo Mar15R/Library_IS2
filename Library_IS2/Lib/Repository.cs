@@ -74,10 +74,10 @@ namespace Library_IS.Lib
             try
             {
                 var entry = _dbContext.Entry(entity);
-                if (entry.State == EntityState.Detached)
-                {
-                    return false;
-                }
+                //if (entry.State == EntityState.Detached)
+                //{
+                //    return false;
+                //}
                 entry.State = EntityState.Modified;
                 _dbContext.SaveChanges();
                 return true;
@@ -98,9 +98,11 @@ namespace Library_IS.Lib
             try
             {
                 IQueryable<TEntity> query = _dbContext.Set<TEntity>();
-                return query.FirstOrDefault(filter);
+                // Ensure the returned entity is not tracked by the context
+                return query.AsNoTracking().FirstOrDefault(filter);
             }
             catch { throw; }
         }
+
     }
 }

@@ -15,6 +15,9 @@ namespace Library_IS2.Views
         public DateTime PickDate { get; set; }        
         public string Email { get; set; }
         public int DaysOverdue { get; set; }
+        public int? Reminder { get; set; }
+
+        public string Status { get; set; }
         
            
         

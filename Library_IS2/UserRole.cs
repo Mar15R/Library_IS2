@@ -7,23 +7,35 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace Library_IS2
 {
-    using System;
+
+using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+public partial class UserRole
+{
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public UserRole()
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserRole()
-        {
-            this.User = new HashSet<User>();
-        }
-    
-        public string Role { get; set; }
-        public string Description { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+
+        this.User = new HashSet<User>();
+
     }
+
+
+    public string Role { get; set; }
+
+    public string Description { get; set; }
+
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<User> User { get; set; }
+
+}
+
 }

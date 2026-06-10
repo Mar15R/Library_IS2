@@ -98,7 +98,7 @@ namespace Library_IS2.Lib
             catch { throw; }
         }
         public List<UnreturnedBookView> GetUnreturnedBooks(List<UserBook> unreturnedBooks)
-            {
+        {
 
             try
             {
@@ -109,7 +109,9 @@ namespace Library_IS2.Lib
                     Email = ub.User?.Email,
                     DaysOverdue = (DateTime.Now - (ub.PickDate.AddDays(GlobalSettings.Instance.DaysToReturn))).Days,
                     UserName = ub.UserName,
-                    PickDate = ub.PickDate
+                    PickDate = ub.PickDate,
+                    Reminder = ub.Reminder,
+                    Status = ub.User.IsActive == true ? "Active" : "Inactive"
                 }).ToList();
                 return result;
             }
@@ -123,7 +125,7 @@ namespace Library_IS2.Lib
                 UserBook userBook = repo.GetEntitiesByFilter<UserBook>(ub => ub.UserName == username && ub.Id_Book == bookId).FirstOrDefault();
                 if (userBook == null)
                 {
-                    return new Result<bool> { ErrorMessage = "UserBook not found.", Data = false }; 
+                    return new Result<bool> { ErrorMessage = "UserBook not found.", Data = false };
                 }
                 return new Result<bool> { Data = repo.DeleteEntityById<UserBook>(userBook.Id_Book) };
             }
@@ -142,6 +144,22 @@ namespace Library_IS2.Lib
                 };
                 repo.InsertEntity(bookReview);
                 return new Result<bool> { Data = true };
+            }
+            catch { throw; }
+        }
+
+        public bool UserStatusChange(string username, bool isActive)
+        {
+            try
+            {
+                User user = repo.GetEntityById<User>( username);
+                if (user == null)
+                {
+                    return false;
+                }
+                user.IsActive = isActive;
+                repo.UpdateEntity(user);
+                return true;
             }
             catch { throw; }
         }

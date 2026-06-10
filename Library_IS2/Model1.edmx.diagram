@@ -7,17 +7,17 @@
       <Diagram DiagramId="9ca785daa4b74bd29c4d8db6ff4a2802" Name="Diagram1">
         <EntityTypeShape EntityType="Library2Model.Author" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Library2Model.Book" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Library2Model.User" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Library2Model.UserRole" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="Library2Model.FK_Book_Author" ManuallyRouted="false" />
-        <AssociationConnector Association="Library2Model.FK_User_UserRole" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Library2Model.BookReview" Width="1.5" PointX="5.25" PointY="3.75" />
         <AssociationConnector Association="Library2Model.FK_BookReview_Book" />
-        <AssociationConnector Association="Library2Model.FK_BookReview_User" />
         <EntityTypeShape EntityType="Library2Model.UserBook" Width="1.5" PointX="5.25" PointY="0.875" />
         <AssociationConnector Association="Library2Model.FK_UserBook_Book" />
+        <EntityTypeShape EntityType="Library2Model.User" Width="1.5" PointX="3" PointY="5.75" />
+        <AssociationConnector Association="Library2Model.FK_BookReview_User" />
+        <AssociationConnector Association="Library2Model.FK_User_UserRole" />
         <AssociationConnector Association="Library2Model.FK_UserBook_User" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

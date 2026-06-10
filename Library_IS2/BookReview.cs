@@ -7,20 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace Library_IS2
 {
-    using System;
+
+using System;
     using System.Collections.Generic;
     
-    public partial class BookReview
-    {
-        public long Id_BookReview { get; set; }
-        public long Id_Book { get; set; }
-        public string UserName { get; set; }
-        public string Review { get; set; }
-        public System.DateTime ReviewDate { get; set; }
-    
-        public virtual Book Book { get; set; }
-        public virtual User User { get; set; }
-    }
+public partial class BookReview
+{
+
+    public long Id_BookReview { get; set; }
+
+    public long Id_Book { get; set; }
+
+    public string UserName { get; set; }
+
+    public string Review { get; set; }
+
+    public System.DateTime ReviewDate { get; set; }
+
+
+
+    public virtual Book Book { get; set; }
+
+    public virtual User User { get; set; }
+
+}
+
 }
